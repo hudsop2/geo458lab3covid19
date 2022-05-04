@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Choropleth Mapping COVID Rates</title>
+    <title>US 2020 COVID Rates</title>
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.5.0/mapbox-gl.css" rel="stylesheet">
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.5.0/mapbox-gl.js"></script>
@@ -45,7 +45,7 @@
 
         #features {
             top: 0;
-            height: 100px;
+            height: 280px;
             margin-top: 20px;
             width: 250px;
         }
@@ -77,9 +77,12 @@
 <body>
     <div id="map"></div>
     <div class='map-overlay' id='features'>
-        <h2>COVID 2020 Rates</h2>
+        <h2>US 2020 COVID Rates</h2>
         <div id='text-description'>
-            <p>Hover over a state!</p>
+            <p><i><u>Hover over a county!</u></i></p>
+            <p>This map will allow users to view the rates of COVID-19 cases in counties throughout the United States during the year 2020.
+                The color of the counties represent the rates as outlined in the legend. To view exact rates by county
+                 please hover the cursor over a county!</p>
         </div>
     </div>
     <div class='map-overlay' id='legend'></div>
@@ -185,8 +188,11 @@
                 layers: ['covidrates-layer']
             });
             document.getElementById('text-description').innerHTML = state.length ?
-                `<h3>${state[0].properties.county}</h3><p><strong><em>${state[0].properties.rates}</strong> COVID Rate</em></p>` :
-                `<p>Hover over a state!</p>`;
+                `<p>County: <strong>${state[0].properties.county}, ${state[0].properties.state}</strong></p><p>COVID Rate: <strong><em>${state[0].properties.rates}</strong></em></p>` :
+                `<p><i><u>Hover over a county!</u></i></p>
+                <p>This map will allow users to view the rates of COVID-19 cases in counties throughout the United States during the year 2020.
+                The color of the counties represent the rates as outlined in the legend. To view exact rates by county
+                 please hover the cursor over a county!</p>`;
         });
 
     </script>

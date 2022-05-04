@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Test Map</title>
+    <title>US 2020 COVID Cases</title>
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.css" rel="stylesheet">
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.js"></script>
@@ -31,6 +31,28 @@
             padding: 10px 20px 10px 10px;
             border-radius: 3px;
             text-align: center;
+        }
+
+        .map-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            background: rgba(255, 255, 255, 0.8);
+            border-style: solid;
+            border-width: 1px;
+            border-color: rgba(0, 0, 0, 0.2);
+            margin-left: 20px;
+            font-family: Arial, sans-serif;
+            overflow: auto;
+            border-radius: 3px;
+        }
+
+        #features {
+            top: 0;
+            height: 290px;
+            margin-top: 20px;
+            margin-left: 20px;
+            width: 280px;
         }
 
         /* each line for a break */
@@ -66,6 +88,16 @@
 <body>
     <div id="map"></div>
     <div id="legend"></div>
+    <div class='map-overlay' id='features'>
+        <h2>&thinsp;US 2020 COVID Cases</h2>
+        <div id='text-description'>
+            <p>&emsp;<i><u>Click on a county!</u></i></p>
+            <p>&ensp;This map will allow users to view the amount of COVID-19 cases in counties throught the United States during the year 2020.
+                 Both the size and color of the bubbles help to represent the amount of cases as outlined in the legend. To view the exact case counts by county
+                  please click on a counties bubble!
+            </p>
+        </div>
+    </div>
     <script>
         mapboxgl.accessToken =
             'pk.eyJ1IjoiamFrb2J6aGFvIiwiYSI6ImNpcms2YWsyMzAwMmtmbG5icTFxZ3ZkdncifQ.P9MBej1xacybKcDN_jehvw';
@@ -131,7 +163,7 @@
             map.on('click', 'us-covid-2020-point', (event) => {
                 new mapboxgl.Popup()
                     .setLngLat(event.features[0].geometry.coordinates)
-                    .setHTML(`<strong>Cases</strong> ${event.features[0].properties.cases}`)
+                    .setHTML(`<strong>County: </strong>${event.features[0].properties.county}, ${event.features[0].properties.state}<br><strong>COVID Cases:</strong> ${event.features[0].properties.cases}`)
                     .addTo(map);
             });
 
@@ -161,6 +193,8 @@
 
         // combine all the html codes.
         legend.innerHTML = labels.join('');
+    
+
     </script>
 
 </body>
